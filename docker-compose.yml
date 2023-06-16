@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  e2etests:
+    stdin_open: true
+    tty: true
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: e2etests
+    volumes:
+      - e2etests-results:/e2etests/results/:rw
+    env_file:
+      - .env.docker.local
+
+volumes:
+    e2etests-results:
+        driver: local
+        driver_opts:
+          o: bind
+          type: none
+          device: ./results
